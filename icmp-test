@@ -1,0 +1,28 @@
+#!/bin/bash
+# Program name: icmptest
+# Developed by LG
+# Version: 0.1
+# Date: August 14, 2015
+clear
+echo ICMP TEST v0.1
+date
+echo
+cat list.txt |  while read output
+do
+    ping -c 2 "$output" > /dev/null
+    if [ $? -eq 0 ]; then
+    echo "node $output is up"
+    else
+    echo -e "node $output is down"
+	ssh-keyscan "$output" 2>&1 | grep -v "^$" > /dev/null
+	[ $? == 0 ] && echo $output >> $LOGFILE 2>&1
+    fi
+done
+
+
+
+ ssh-keyscan "$output" 2>&1 | grep -v "^$" > /dev/null
+   [ $? == 0 ] && echo $output >> $LOGFILE 2>&1
+ 
+  ssh-keyscan $IP_ADDRESS 2>&1 | grep -v "^$" > /dev/null
+    [ $? == 0 ] && echo $IP_ADDRESS >> $LOGFILE 2>&1
